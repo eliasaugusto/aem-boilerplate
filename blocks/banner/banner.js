@@ -3,7 +3,7 @@ export default function decorate(block) {
 
   const imageUrl = rows[0]?.textContent?.trim();
   const title = rows[1]?.textContent?.trim();
-  const text = rows[2]?.textContent?.trim();
+  const text = rows[3]?.textContent?.trim();
 
   console.log(rows);
 
