@@ -1,1 +1,17 @@
-/* stylelint-disable no-empty-source */
+.banner__inner {
+  display: grid;
+  gap: 24px;
+  align-items: center;
+}
+
+.banner__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (min-width: 900px) {
+  .banner__inner {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
