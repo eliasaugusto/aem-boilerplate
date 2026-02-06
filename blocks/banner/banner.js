@@ -1,12 +1,35 @@
+function normalizeKey(text) {
+  return (text || '')
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-');
+}
+
+function readKeyValueBlock(block) {
+  const data = {};
+
+  [...block.children].forEach((row) => {
+    const keyEl = row.children?.[0];
+    const valueEl = row.children?.[1];
+
+    const key = normalizeKey(keyEl?.textContent);
+    if (!key || !valueEl) return;
+
+    data[key] = valueEl;
+  });
+
+  return data;
+}
+
 export default function decorate(block) {
-  const rows = [...block.querySelectorAll(':scope > div > div')];
+  const data = readKeyValueBlock(block);
 
-  const imageUrl = rows[0]?.textContent?.trim();
-  const title = rows[1]?.textContent?.trim();
-  const text = rows[3]?.textContent?.trim();
+  // pega os valores
+  const imageUrl = data.image?.textContent?.trim();
+  const title = data.title?.textContent?.trim();
+  const description = data.description?.textContent?.trim();
 
-  console.log(rows);
-
+  // limpa o markup original (tabela)
   block.innerHTML = '';
 
   const wrapper = document.createElement('div');
@@ -33,9 +56,9 @@ export default function decorate(block) {
     content.append(h1);
   }
 
-  if (text) {
+  if (description) {
     const p = document.createElement('p');
-    p.textContent = text;
+    p.textContent = description;
     content.append(p);
   }
 
