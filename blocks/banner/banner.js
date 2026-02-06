@@ -1,49 +1,19 @@
-function normalizeKey(text) {
-  return (text || '')
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '-');
-}
-
-function readKeyValueBlock(block) {
-  const data = {};
-
-  [...block.children].forEach((row) => {
-    const keyEl = row.children?.[0];
-    const valueEl = row.children?.[1];
-
-    const key = normalizeKey(keyEl?.textContent);
-    if (!key || !valueEl) return;
-
-    data[key] = valueEl;
-  });
-
-  return data;
-}
-
 export default function decorate(block) {
   const data = readKeyValueBlock(block);
 
-  // pega os valores
-  const imageUrl = data.image?.textContent?.trim();
   const title = data.title?.textContent?.trim();
   const description = data.description?.textContent?.trim();
+  const imgEl = data.image?.querySelector('img');
 
-  // limpa o markup original (tabela)
   block.innerHTML = '';
 
   const wrapper = document.createElement('div');
   wrapper.className = 'banner__inner';
 
-  if (imageUrl) {
+  if (imgEl) {
     const media = document.createElement('div');
     media.className = 'banner__media';
-
-    const img = document.createElement('img');
-    img.src = imageUrl;
-    img.alt = title || '';
-
-    media.append(img);
+    media.append(imgEl);
     wrapper.append(media);
   }
 
