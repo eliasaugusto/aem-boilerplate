@@ -1,25 +1,42 @@
 export default function decorate(block) {
-  const variant = block.dataset.variant;
-  if (variant) block.classList.add(`banner--${variant}`);
+  const rows = [...block.querySelectorAll(':scope > div > div')];
 
-  const img = block.querySelector('img');
-  const heading = block.querySelector('h1');
-  const text = block.querySelector('p');
+  const imageUrl = rows[0]?.textContent?.trim();
+  const title = rows[1]?.textContent?.trim();
+  const text = rows[2]?.textContent?.trim();
 
   block.innerHTML = '';
 
   const wrapper = document.createElement('div');
   wrapper.className = 'banner__inner';
 
-  const media = document.createElement('div');
-  media.className = 'banner__media';
-  if (img) media.append(img.closest('picture') || img);
+  if (imageUrl) {
+    const media = document.createElement('div');
+    media.className = 'banner__media';
+
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = title || '';
+
+    media.append(img);
+    wrapper.append(media);
+  }
 
   const content = document.createElement('div');
   content.className = 'banner__content';
-  if (heading) content.append(heading);
-  if (text) content.append(text);
 
-  wrapper.append(media, content);
+  if (title) {
+    const h1 = document.createElement('h1');
+    h1.textContent = title;
+    content.append(h1);
+  }
+
+  if (text) {
+    const p = document.createElement('p');
+    p.textContent = text;
+    content.append(p);
+  }
+
+  wrapper.append(content);
   block.append(wrapper);
 }
