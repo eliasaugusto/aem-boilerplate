@@ -2,6 +2,7 @@
   display: grid;
   gap: 24px;
   align-items: center;
+  margin: 24px;
 }
 
 .banner__media img {
