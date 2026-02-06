@@ -5,6 +5,8 @@ export default function decorate(block) {
   const title = rows[1]?.textContent?.trim();
   const text = rows[2]?.textContent?.trim();
 
+  console.log(rows);
+
   block.innerHTML = '';
 
   const wrapper = document.createElement('div');
