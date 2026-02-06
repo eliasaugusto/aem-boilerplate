@@ -16,3 +16,13 @@
     grid-template-columns: 1.2fr 1fr;
   }
 }
+
+
+.banner--dark {
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.banner--dark .banner__content {
+  padding: 32px;
+}

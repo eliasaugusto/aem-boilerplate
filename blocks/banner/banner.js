@@ -1,4 +1,7 @@
 export default function decorate(block) {
+  const variant = block.dataset.variant;
+  if (variant) block.classList.add(`banner--${variant}`);
+
   const img = block.querySelector('img');
   const heading = block.querySelector('h1');
   const text = block.querySelector('p');
